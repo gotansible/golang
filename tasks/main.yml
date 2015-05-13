@@ -1,0 +1,6 @@
+---
+# tasks file for golang
+
+- include: install.yml
+
+- include: config.yml

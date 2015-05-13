@@ -1,0 +1,10 @@
+---
+# defaults file for golang
+
+golang_version: 1.4.2
+golang_file: go{{ golang_version }}.{{ansible_system|lower}}-amd64.tar.gz
+golang_url: https://storage.googleapis.com/golang/{{ golang_file }}
+
+golang_install_dir: /usr/local
+golang_build_dir: /tmp/golang
+
