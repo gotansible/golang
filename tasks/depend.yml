@@ -1,0 +1,22 @@
+---
+- name: depend - install Debian packages
+  apt:
+    name={{ item }}
+    state=present
+    update_cache=yes
+    cache_valid_time=3600
+  with_flattened: [golang_debian_packages, debian_build_essential]
+  register: apt_output
+  changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in apt_output.stdout and 'not upgraded' not in apt_output.stdout"
+  when: ansible_os_family == "Debian"
+
+- name: depend - install CentOS packages
+  yum:
+    name={{ item }}
+    state=present
+    update_cache=yes
+  with_flattened: [golang_centos_packages, centos_build_essential]
+  when: ansible_os_family == "RedHat"
+
+
+

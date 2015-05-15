@@ -2,9 +2,39 @@
 # defaults file for golang
 
 golang_version: 1.4.2
+golang_per_user: false
+
+# if golang_use_gimme the following is ignored
 golang_file: go{{ golang_version }}.{{ansible_system|lower}}-amd64.tar.gz
 golang_url: https://storage.googleapis.com/golang/{{ golang_file }}
 
 golang_install_dir: /usr/local
 golang_build_dir: /tmp/golang
+
+golang_debian_packages:
+  - curl
+
+golang_centos_packages:
+  - curl
+
+centos_build_essential:
+  - autoconf
+  - gcc
+  - bison
+  - flex
+  - gcc-c++
+  - gettext
+  - kernel-devel
+  - make
+  - m4
+  - ncurses-devel
+
+debian_build_essential:
+  - autoconf
+  - binutils-doc
+  - bison
+  - build-essential
+  - flex
+  - gettext
+  - ncurses-dev
 

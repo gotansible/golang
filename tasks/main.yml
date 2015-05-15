@@ -1,6 +1,16 @@
 ---
 # tasks file for golang
+- name: dependencies
+  include: depend.yml
 
-- include: install.yml
+- name: install go manually
+  include: install.yml
+  when: not golang_per_user
 
-- include: config.yml
+- name: configure go manually
+  include: config.yml
+  when: not golang_per_user
+
+- name: gimme go
+  include: gimme.yml
+  when: golang_per_user
