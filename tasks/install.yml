@@ -1,38 +1,39 @@
 ---
-- name: create build directory
+
+- name: install - create build directory
   file:
     state=directory
     path={{ golang_build_dir }}
 
-- name: create installation directory
+- name: install - Check if Go is installed and get version
+  shell: "{{ golang_install_dir }}/go/bin/go version | cut -d ' ' -f3"
+  register: version
+  ignore_errors: true
+  changed_when: false
+
+- name: install - download go
+  get_url:
+    url={{ golang_url }}
+    dest={{ golang_build_dir }}/{{ golang_file }}
+  when: version.stdout != "go{{ golang_version }}"
+
+- name: install - delete old version
+  file:
+    path={{ golang_install_dir }}
+    state=absent
+  when: version.stdout != "go{{ golang_version }}"
+
+- name: install - create installation directory
   file:
     state=directory
     path={{ golang_install_dir }}
     owner=root
     group=root
 
-- name: Check if Go is installed and get version
-  shell: "{{ golang_install_dir }}/go/bin/go version | cut -d ' ' -f3"
-  register: version
-  ignore_errors: true
-  changed_when: false
-
-- name: download go
-  get_url:
-    url={{ golang_url }}
-    dest={{ golang_build_dir }}/{{ golang_file }}
-  when: version.stdout != "go{{ golang_version }}"
-
-- name: delete old version
-  file:
-    path={{ golang_install_dir }}/go
-    state=absent
-  when: version.stdout != "go{{ golang_version }}"
-
-- name: extract to installation location
+- name: install - extract to installation location
   unarchive:
     src={{ golang_build_dir }}/{{ golang_file }}
-    dest={{ golang_install_dir }}/go
+    dest={{ golang_install_dir }}
     copy=no
     creates={{ golang_install_dir }}/go/bin/go
   when: version.stdout != "go{{ golang_version }}"
