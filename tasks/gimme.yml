@@ -9,3 +9,4 @@
   shell: 'eval "$(curl -sL https://raw.githubusercontent.com/meatballhat/gimme/master/gimme | GIMME_GO_VERSION={{ golang_version }} bash)"'
   args:
     chdir: "{{ golang_build_dir }}"
+    creates: ~/.gimme/envs/latest.env

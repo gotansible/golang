@@ -10,9 +10,15 @@ install:
 script:
   - echo localhost > inventory
   - ansible-playbook -i inventory test.yml --syntax-check
-  - ansible-playbook -i inventory test.yml --connection=local --sudo -e "key=value"
+  - ansible-playbook -i inventory test.yml --connection=local --sudo -e "golang_per_user=false"
   - >
-    ansible-playbook -i inventory test.yml --connection=local --sudo -e "key=value"
+    ansible-playbook -i inventory test.yml --connection=local --sudo -e "golang_per_user=false"
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+  - ansible-playbook -i inventory test.yml --connection=local --sudo -e "golang_per_user=true"
+  - >
+    ansible-playbook -i inventory test.yml --connection=local --sudo -e "golang_per_user=true"
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
