@@ -1,2 +1,7 @@
 ---
 # vars file for golang
+
+# path to the golang binaries
+golang_path: "{{ golang_install_dir }}/go/bin"
+
+
