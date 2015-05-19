@@ -11,6 +11,9 @@ golang_url: https://storage.googleapis.com/golang/{{ golang_file }}
 golang_install_dir: /usr/local
 golang_build_dir: /tmp/golang
 
+# path to the golang binaries
+golang_path: "{{ golang_install_dir }}/go/bin"
+
 golang_debian_packages:
   - curl
 
