@@ -1,6 +1,9 @@
 golang
 =========
 
+[![Build Status](https://travis-ci.org/gotansible/golang.svg?branch=master)](https://travis-ci.org/gotansible/golang)
+[![Ansible Galaxy](http://img.shields.io/badge/galaxy-golang-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/3837)
+
 Installs go. Either a user specific install or a system wide install.
 
 Requirements
@@ -28,11 +31,9 @@ None.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: gotansible.golang, golang_version: 1.4.2 }
 
 License
 -------
@@ -42,4 +43,4 @@ MIT
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Created by Franklin Wise in Santa Monica, CA.
