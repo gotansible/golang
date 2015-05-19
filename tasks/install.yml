@@ -19,7 +19,7 @@
 
 - name: install - delete old version
   file:
-    path={{ golang_install_dir }}
+    path={{ golang_install_dir }}/go
     state=absent
   when: version.stdout != "go{{ golang_version }}"
 
